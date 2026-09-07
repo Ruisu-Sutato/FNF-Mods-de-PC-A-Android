@@ -21,7 +21,7 @@ class Eventos:
                              "v" : {
                              "char" : 0
                               }
-                              })
+                              })                
             for evento in events.get("events", []):
                 if evento[1][-1][0] == "Add Camera Zoom":
                     eventos.append(
