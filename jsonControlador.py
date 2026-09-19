@@ -20,7 +20,7 @@ class JsonControl:
             if not os.path.exists(f"{carpeta}-android"):
                 os.makedirs(f"{carpeta}-android")
             with open(f"{carpeta}-android/{nombre}-android.json", "w") as f:
-                json.dump(archivo,  f,  indent=1)
+                json.dump(archivo,  f,  indent=4)
                 print(f"Archivo guardado como {nombre}.json")
         except FileNotFoundError:
             print("No se encontró el archivo.")
