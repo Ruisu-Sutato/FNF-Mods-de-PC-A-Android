@@ -4,20 +4,25 @@ class Intercambiar:
     def chart(chart):
         eventos = []
         for evento in chart["events"]:
-            if evento.get("v", False):
-                eventos.append({
-                    "t" : evento["t"], "e" : evento["e"], "v" : {"char" : 0 if evento["v"]["char"] == 1 else 1}
-                                })
-
+            if isinstance(evento["v"], dict) and evento["v"].get("char", False):
+                evento["v"]["char"] = 0 if evento["v"]["char"] else 1
+                eventos.append(evento)
+            elif isinstance(evento["v"], int):
+                evento["v"] = 0 if evento["v"] else 1
+                eventos.append(evento)
+            elif evento.get("e", False) == "PlayAnimation":
+                evento["v"]["target"] = "dad" if evento["v"]["target"] == "boyfriend" else "boyfriend"
+                eventos.append(evento)
+            else:
+                eventos.append(evento)
 
         dificultades = list(chart["notes"])
         notas = {}
         for dificultad in dificultades:
             notas.setdefault(dificultad,  [])
             for nota in chart["notes"][dificultad]:
-                notas[dificultad].append({
-                    "t" : nota["t"], "d" : nota["d"] - 4 if nota["d"] > 3 else nota["d"] + 4, "l" : nota.get("l", 0)
-                })
+                nota["d"] = nota["d"] - 4 if nota["d"] > 3 else nota["d"] + 4
+                notas[dificultad].append(nota)
 
         JsonControl.guardarJson({
             "version" : chart.get("version", "2.0.0"),
@@ -26,7 +31,6 @@ class Intercambiar:
             "notes" : notas,
             "generatedBy" : "Luis Angel"
         }, "intercambio")
-        return eventos, notas
 
 
-Intercambiar.chart( JsonControl.leerJson("roses-chart.json"))
+Intercambiar.chart(JsonControl.leerJson("blissful-chart-erect.json"))

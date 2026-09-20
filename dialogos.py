@@ -33,4 +33,4 @@ class Dialogos:
             "dialogue" : dialogos
         }
 
-        JsonControl.guardarJson(nuevoArchivo,  "diálogos")
+        JsonControl.guardarJson(nuevoArchivo, "diálogo", "diálogos")

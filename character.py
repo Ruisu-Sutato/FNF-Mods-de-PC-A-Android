@@ -26,7 +26,7 @@ class ConvertirChar:
                 }
                 )
 
-        JsonControl.guardarJson(nuevoArchivo, "nuevoNpc")
+        JsonControl.guardarJson(nuevoArchivo, "NPC", "NPC")
 
 
     def bf(archivo):
@@ -56,7 +56,7 @@ class ConvertirChar:
                 }
                 )
 
-        JsonControl.guardarJson(nuevoArchivo, "nuevoBf")
+        JsonControl.guardarJson(nuevoArchivo,"BF", "BF")
 
 
     def gf(archivo):
@@ -81,4 +81,4 @@ class ConvertirChar:
                 }
                 )
 
-        JsonControl.guardarJson(nuevoArchivo, "nuevaGf")
+        JsonControl.guardarJson(nuevoArchivo, "GF" ,"GF")

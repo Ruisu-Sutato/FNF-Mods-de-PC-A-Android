@@ -1,9 +1,10 @@
 import json
 import os
+import typing
 class JsonControl:
-    def leerJson(url):
+    def leerJson(url=str) -> dict:
         try:
-            with open(url, "r") as f:
+            with open(url, "r", encoding="utf-8") as f:
                 datos = json.load(f)
                 return datos
         except FileNotFoundError:
@@ -13,13 +14,12 @@ class JsonControl:
         except Exception as e:
             print(f"Error {e}2")
 
-    def guardarJson(archivo ,nombre):
+    def guardarJson(archivo=dict ,nombre=str, carpeta=str):
         try:
             nombre = nombre.lower().replace(" ", "-")
-            carpeta = nombre.replace("-metadata", "").replace("-chart", "")
-            if not os.path.exists(f"{carpeta}-android"):
-                os.makedirs(f"{carpeta}-android")
-            with open(f"{carpeta}-android/{nombre}-android.json", "w") as f:
+            if not os.path.exists(f"{carpeta} android"):
+                os.makedirs(f"{carpeta} android")
+            with open(f"{carpeta} android/{nombre}.json", "w", encoding="utf-8") as f:
                 json.dump(archivo,  f,  indent=4)
                 print(f"Archivo guardado como {nombre}.json")
         except FileNotFoundError:
