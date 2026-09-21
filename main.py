@@ -19,8 +19,9 @@ while True:
 
         metadata = Convertidor.metadata(archivo)
         chart = Convertidor.chart(archivo, archivoEvents)
-        JsonControl.guardarJson(metadata, metadata["songName"] + "-metadata", metadata["songName"])
-        JsonControl.guardarJson(chart, metadata["songName"] + "-chart", metadata["songName"])
+        carpeta = metadata["songName"].lower().replace(" ", "-")
+        JsonControl.guardarJson(metadata, metadata["songName"] + "-metadata", carpeta)
+        JsonControl.guardarJson(chart, metadata["songName"] + "-chart", carpeta)
     elif opciones == "dialogos":
         Dialogos.convertirDialogos(JsonControl.leerJson(input("Ingresa la url del los diálogos qué deseas convertir a Android.\n")))
     elif opciones == "personaje":

@@ -24,13 +24,12 @@ class Intercambiar:
                 nota["d"] = nota["d"] - 4 if nota["d"] > 3 else nota["d"] + 4
                 notas[dificultad].append(nota)
 
+        print(f"Exito al intercambiar jugadores\nTotal de eventos : {len(eventos)}\nTotal de Notas {len(notas[dificultades[-1]])}")
         JsonControl.guardarJson({
             "version" : chart.get("version", "2.0.0"),
             "scrollSpeed" : chart.get("scrollSpeed", 0),
             "events" : eventos,
             "notes" : notas,
             "generatedBy" : "Luis Angel"
-        }, "intercambio")
+        }, "intercambio", "intercambio")
 
-
-Intercambiar.chart(JsonControl.leerJson("blissful-chart-erect.json"))

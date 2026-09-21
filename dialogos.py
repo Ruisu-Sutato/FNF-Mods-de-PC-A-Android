@@ -32,5 +32,5 @@ class Dialogos:
     
             "dialogue" : dialogos
         }
-
+        print(f"Diálogos convertidos con exito!\nTotal de diálogos : {len(dialogos)}")
         JsonControl.guardarJson(nuevoArchivo, "diálogo", "diálogos")

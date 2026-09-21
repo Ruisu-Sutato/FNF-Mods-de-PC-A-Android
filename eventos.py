@@ -31,4 +31,5 @@ class Eventos:
                     eventos.append(
                     {"t" : evento[0], "e" : evento[1][-1][0], "v" : { "v1": evento[1][-1][1], "v2":  evento[1][-1][-1]}
                   }  )
+            print(f"Eventos convertidos con exito!\nTotal de eventos : {len(eventos)}")
             return eventos                       

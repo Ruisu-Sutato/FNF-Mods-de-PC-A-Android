@@ -17,9 +17,9 @@ class JsonControl:
     def guardarJson(archivo=dict ,nombre=str, carpeta=str):
         try:
             nombre = nombre.lower().replace(" ", "-")
-            if not os.path.exists(f"{carpeta} android"):
-                os.makedirs(f"{carpeta} android")
-            with open(f"{carpeta} android/{nombre}.json", "w", encoding="utf-8") as f:
+            if not os.path.exists(f"{carpeta}-android"):
+                os.makedirs(f"{carpeta}-android")
+            with open(f"{carpeta}-android/{nombre}.json", "w", encoding="utf-8") as f:
                 json.dump(archivo,  f,  indent=4)
                 print(f"Archivo guardado como {nombre}.json")
         except FileNotFoundError:

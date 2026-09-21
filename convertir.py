@@ -8,6 +8,7 @@ class Convertidor:
         else:
             dificultades = {"normal" : 5}
             dificultades2 = ["normal"]
+        print("Metadata convertida con exito!")
         return {
         "version" : "2.2.4",
         "songName" : datos.get("song", "Canción"), 
@@ -47,6 +48,7 @@ class Convertidor:
                 for teclas in notas.get("sectionNotes", []):
                     cancion.append({ "t": teclas[0], "d": teclas[1], "l": teclas[2]})             
             dificultades = {"normal" : cancion}
+            print(f"Chart convertido con exito!\nCantidad de notas : {len(cancion)}")
         else:
                 velocidad = datos.get("speed", 1)
                 dificultades = {k: [] for k in datos["notes"]}
