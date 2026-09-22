@@ -42,20 +42,28 @@ class Convertidor:
         eventos = Eventos.convertirEventos(datos.get("notes", []), events)
         cancion = []
         if isinstance(datos.get("notes", []), list):
-            velocidad = {"normal" :datos.get("speed", 1)}
+            velocidad = {"normal" : datos.get("speed", 1)}
             for notas in datos.get("notes", []):
+                must = notas.get("mustHitSection", False)
             #alt = notas.get("altAnim", False)
                 for teclas in notas.get("sectionNotes", []):
-                    cancion.append({ "t": teclas[0], "d": teclas[1], "l": teclas[2]})             
+                    d = teclas[1]
+                    if not must:
+                        d = (d + 4) % 8
+                    cancion.append({ "t": teclas[0], "d": d, "l": teclas[2]})             
             dificultades = {"normal" : cancion}
             print(f"Chart convertido con exito!\nCantidad de notas : {len(cancion)}")
         else:
                 velocidad = datos.get("speed", 1)
                 dificultades = {k: [] for k in datos["notes"]}
                 for dificultad, secciones in datos["notes"].items():
-                            for seccion in secciones:
-                                for teclas in seccion["sectionNotes"]:
-                                    dificultades[dificultad].append({ "t": teclas[0], "d": teclas[1], "l": teclas[2]})
+                    for seccion in secciones:
+                        must = seccion.get("mustHitSection", False)
+                        for teclas in seccion["sectionNotes"]:
+                            d = teclas[1]
+                            if not must:
+                                d = (d + 4) % 8
+                            dificultades[dificultad].append({ "t": teclas[0], "d": d, "l": teclas[2]})
                                     
                                       
         return { "version" : "2.0.0",
