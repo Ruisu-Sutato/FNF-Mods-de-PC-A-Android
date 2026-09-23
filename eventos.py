@@ -15,7 +15,7 @@ class Eventos:
                     if evento[1][-1][-1] == "2":
                         target = "dad"
                     elif evento[1][-1][-1] == "1":
-                        target == "bf"
+                        target = "bf"
                     else:
                         target = evento[1][-1][-1]
                     eventos.append( {
