@@ -12,9 +12,9 @@ class Eventos:
                   }  )
                 elif evento[1][-1][0] == "Play Animation":
                     target = "bf"
-                    if int(evento[1][-1][-1]) == 2:
+                    if evento[1][-1][-1] == "2":
                         target = "dad"
-                    elif int(evento[1][-1][-1]) == 1:
+                    elif evento[1][-1][-1] == "1":
                         target == "bf"
                     else:
                         target = evento[1][-1][-1]
