@@ -38,7 +38,7 @@ class Convertidor:
           }]
             }
 
-    def chart(datos, events):
+    def chart(datos, events, multi = False):
         eventos = Eventos.convertirEventos(datos.get("notes", []), events)
         cancion = []
         if isinstance(datos.get("notes", []), list):
@@ -48,7 +48,7 @@ class Convertidor:
             #alt = notas.get("altAnim", False)
                 for teclas in notas.get("sectionNotes", []):
                     d = teclas[1]
-                    if not must:
+                    if not must and multi:
                         d = (d + 4) % 8
                     cancion.append({ "t": teclas[0], "d": d, "l": teclas[2]})             
             dificultades = {"normal" : cancion}
