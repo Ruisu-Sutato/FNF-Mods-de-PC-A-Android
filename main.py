@@ -13,9 +13,7 @@ while True:
     elif opciones == "convertir" :
         archivo  = JsonControl.leerJson(input("Ingresa la url del archivo que deseas convertir. \n"))
 
-        archivoEvents = JsonControl.leerJson(input("Ingresa la url del archivo de eventos. \n")) or {"events" : []}
-
-        archivo = archivo["song"] if not isinstance(archivo["song"], str) else archivo
+        archivoEvents = JsonControl.leerJson(input("Ingresa la url del archivo de eventos. \n")) or {"events" : [], "format" : "psych_v1"}
 
         metadata = Convertidor.metadata(archivo)
         chart = Convertidor.chart(archivo, archivoEvents)

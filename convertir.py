@@ -2,6 +2,8 @@ from eventos import Eventos
 
 class Convertidor:
     def metadata(datos):
+        if not datos.get("format", False):
+            datos = datos.get("song")
         if isinstance(datos["notes"], dict):
             dificultades = {k: 5 for k in datos["notes"]}
             dificultades2 = list(datos["notes"])
@@ -38,9 +40,13 @@ class Convertidor:
           }]
             }
 
-    def chart(datos, events, multi = False):
-        eventos = Eventos.convertirEventos(datos.get("notes", []), events)
+    def chart(datos, events):
         cancion = []
+        formato = True
+        if not datos.get("format", False):
+            datos = datos.get("song")
+            formato = False
+        eventos = Eventos.convertirEventos(datos.get("notes", []), events)
         if isinstance(datos.get("notes", []), list):
             velocidad = {"normal" : datos.get("speed", 1)}
             for notas in datos.get("notes", []):
@@ -48,7 +54,7 @@ class Convertidor:
             #alt = notas.get("altAnim", False)
                 for teclas in notas.get("sectionNotes", []):
                     d = teclas[1]
-                    if not must and multi:
+                    if not must and not formato:
                         d = (d + 4) % 8
                     cancion.append({ "t": teclas[0], "d": d, "l": teclas[2]})             
             dificultades = {"normal" : cancion}
