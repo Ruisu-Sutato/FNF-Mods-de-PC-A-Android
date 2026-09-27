@@ -67,7 +67,7 @@ class Convertidor:
                         must = seccion.get("mustHitSection", False)
                         for teclas in seccion["sectionNotes"]:
                             d = teclas[1]
-                            if not must:
+                            if not must and not formato:
                                 d = (d + 4) % 8
                             dificultades[dificultad].append({ "t": teclas[0], "d": d, "l": teclas[2]})
                                     

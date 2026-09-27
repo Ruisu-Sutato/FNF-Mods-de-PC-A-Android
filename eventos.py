@@ -3,9 +3,18 @@ class Eventos:
             eventos = []
             if not events.get("format", False):
                 events = events.get("song")
-            for seccion in datos:
-                must = seccion.get("mustHitSection", False)
-                eventos.append({ "t": 0 if len(seccion["sectionNotes"]) == 0 else seccion["sectionNotes"][0][0] , "e": "FocusCamera", "v": { "char": 0 if must else 1, "x": 0, "y": 0 } })          
+            if isinstance(datos, dict):
+                dificultades = list(datos)
+                for dificultad in dificultades:
+                    for seccion in datos[dificultad]:
+                        must = seccion.get("mustHitSection", False)
+                        eventos.append({ "t": 0 if len(seccion["sectionNotes"]) == 0 else seccion["sectionNotes"][0][0],
+                        "e": "FocusCamera", "v": { "char": 0 if must else 1, "x": 0, "y": 0 }})
+            else:
+                for seccion in datos:
+                    must = seccion.get("mustHitSection", False)
+                    eventos.append({ "t": 0 if len(seccion["sectionNotes"]) == 0 else seccion["sectionNotes"][0][0],
+                    "e": "FocusCamera", "v": { "char": 0 if must else 1, "x": 0, "y": 0 } })        
             for evento in events.get("events", []):
                 if evento[1][-1][0] == "Add Camera Zoom":
                     eventos.append(
