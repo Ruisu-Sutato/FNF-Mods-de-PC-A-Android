@@ -51,12 +51,17 @@ class Convertidor:
             velocidad = {"normal" : datos.get("speed", 1)}
             for notas in datos.get("notes", []):
                 must = notas.get("mustHitSection", False)
-            #alt = notas.get("altAnim", False)
+                alt = notas.get("altAnim", False)
                 for teclas in notas.get("sectionNotes", []):
                     d = teclas[1]
                     if not must and not formato:
                         d = (d + 4) % 8
-                    cancion.append({ "t": teclas[0], "d": d, "l": teclas[2]})             
+                    tecla = { "t": teclas[0], "d": d}
+                    if teclas[2] > 0:
+                        tecla.setdefault("l", teclas[2])
+                    if alt:
+                        tecla.setdefault("k", True)
+                    cancion.append(tecla)             
             dificultades = {"normal" : cancion}
             print(f"Chart convertido con exito!\nCantidad de notas : {len(cancion)}")
         else:
@@ -64,11 +69,17 @@ class Convertidor:
                 dificultades = {k: [] for k in datos["notes"]}
                 for dificultad, secciones in datos["notes"].items():
                     for seccion in secciones:
+                        alt = seccion.get("altAnim", False)
                         must = seccion.get("mustHitSection", False)
                         for teclas in seccion["sectionNotes"]:
                             d = teclas[1]
                             if not must and not formato:
                                 d = (d + 4) % 8
+                            tecla = { "t": teclas[0], "d": d}
+                            if teclas[2] > 0:
+                                tecla.setdefault("l", teclas[2])
+                            if alt:
+                                tecla.setdefault("k", True)
                             dificultades[dificultad].append({ "t": teclas[0], "d": d, "l": teclas[2]})
                                     
                                       
