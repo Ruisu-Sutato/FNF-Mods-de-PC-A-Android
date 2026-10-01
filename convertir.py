@@ -46,7 +46,7 @@ class Convertidor:
         if not datos.get("format", False):
             datos = datos.get("song")
             formato = False
-        eventos = Eventos.convertirEventos(datos.get("notes", []), events)
+        eventos = Eventos.convertir(datos.get("notes", []), events)
         if isinstance(datos.get("notes", []), list):
             velocidad = {"normal" : datos.get("speed", 1)}
             for notas in datos.get("notes", []):

@@ -1,5 +1,5 @@
 class Eventos:
-    def convertirEventos(datos, events):
+    def convertir(datos, events):
             eventos = []
             if not events.get("format", False):
                 events = events.get("song")
@@ -23,19 +23,19 @@ class Eventos:
                   }  )
                 elif evento[1][-1][0] == "Play Animation":
                     target = "bf"
-                    if evento[1][-1][-1] == "2":
+                    if evento[1][-1][-1] == "2" or evento[1][-1][-1] == "Dad":
                         target = "dad"
-                    elif evento[1][-1][-1] == "1":
+                    elif evento[1][-1][-1] == "1" or evento[1][-1][-1] == "BF":
                         target = "bf"
                     elif evento[1][-1][-1] == "GF":
                         target = "gf"
                     else:
                         target = evento[1][-1][-1]
                     eventos.append( {
-      "t": evento[0],
-      "e": "PlayAnimation",
-      "v": { "anim": evento[1][-1][1], "force": True, "target": target}
-    })
+                    "t": evento[0],
+                    "e": "PlayAnimation",
+                    "v": { "anim": evento[1][-1][1], "force": True, "target": target}
+                    })
                 else:
                     eventos.append(
                     {"t" : evento[0], "e" : evento[1][-1][0], "v" : { "v1": evento[1][-1][1], "v2":  evento[1][-1][-1]}
