@@ -59,8 +59,8 @@ class Convertidor:
                     tecla = { "t": teclas[0], "d": d}
                     if teclas[2] > 0:
                         tecla.setdefault("l", teclas[2])
-                    if alt:
-                        tecla.setdefault("k", True)
+                    if alt or teclas[-1] == "Alt Animation":
+                        tecla.setdefault("k", "mom")
                     cancion.append(tecla)             
             dificultades = {"normal" : cancion}
             print(f"Chart convertido con exito!\nCantidad de notas : {len(cancion)}")
@@ -78,8 +78,8 @@ class Convertidor:
                             tecla = { "t": teclas[0], "d": d}
                             if teclas[2] > 0:
                                 tecla.setdefault("l", teclas[2])
-                            if alt:
-                                tecla.setdefault("k", True)
+                            if alt or teclas[-1] == "Alt Animation":
+                                tecla.setdefault("k", "mom")
                             dificultades[dificultad].append({ "t": teclas[0], "d": d, "l": teclas[2]})
                                     
                                       
