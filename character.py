@@ -1,7 +1,7 @@
 from jsonControlador import JsonControl
 
 class ConvertirChar:
-    def npc(archivo):
+    def npc(archivo = dict):
         nuevoArchivo = {
             "version" : "1.0.0",
             "name" : "nuevoPersonaje",
@@ -29,7 +29,7 @@ class ConvertirChar:
         JsonControl.guardarJson(nuevoArchivo, "NPC", "NPC")
 
 
-    def bf(archivo):
+    def bf(archivo = dict):
         nuevoArchivo = {
             "version" : "1.0.0",
             "name" : "nuevoPersonaje",
@@ -59,7 +59,7 @@ class ConvertirChar:
         JsonControl.guardarJson(nuevoArchivo,"BF", "BF")
 
 
-    def gf(archivo):
+    def gf(archivo = dict):
         nuevoArchivo = {
             "version" : "1.0.0",
             "name" : "nuevoPersonaje",

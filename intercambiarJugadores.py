@@ -1,7 +1,7 @@
 from jsonControlador import JsonControl
 
 class Intercambiar:
-    def chart(chart):
+    def chart(chart = dict):
         eventos = []
         for evento in chart["events"]:
             if isinstance(evento["v"], dict) and evento["v"].get("char", False):

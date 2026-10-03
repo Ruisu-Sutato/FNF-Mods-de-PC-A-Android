@@ -1,5 +1,7 @@
+import typing
+
 class Eventos:
-    def convertir(datos, events):
+    def convertir(datos = dict, events = dict) -> dict:
             eventos = []
             if not events.get("format", False):
                 events = events.get("song")

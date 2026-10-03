@@ -1,6 +1,6 @@
 from jsonControlador import JsonControl
 class Dialogos:
-    def convertirDialogos(archivo):
+    def convertirDialogos(archivo = dict):
         dialogos = []
         for dialogo in archivo["dialogue"]:
             dialogos.append({

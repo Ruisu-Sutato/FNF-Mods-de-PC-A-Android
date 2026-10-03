@@ -1,7 +1,8 @@
 from eventos import Eventos
+import typing
 
 class Convertidor:
-    def metadata(datos):
+    def metadata(datos = dict) -> dict:
         if not datos.get("format", False):
             datos = datos.get("song")
         if isinstance(datos["notes"], dict):
@@ -31,7 +32,7 @@ class Convertidor:
         "ratings" :dificultades,
          "album" : "volume2"
         },
-            "generatedBy" : "Luis Angel Solis Avila",
+            "convertidoPor" : "Luis Angel Solis Avila",
           "timeChanges" : [{
           "t" : 0,
           "b" : 0,
@@ -40,7 +41,7 @@ class Convertidor:
           }]
             }
 
-    def chart(datos, events):
+    def chart(datos = dict, events = dict) -> dict:
         cancion = []
         formato = True
         if not datos.get("format", False):
@@ -87,4 +88,4 @@ class Convertidor:
         "scrollSpeed" : velocidad,
         "events" : eventos,
         "notes" : dificultades,
-        "generatedBy" : "Luis Angel Solis Avila"}
+        "convertidoPor" : "Luis Angel Solis Avila"}
