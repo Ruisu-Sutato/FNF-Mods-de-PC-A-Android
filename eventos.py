@@ -18,29 +18,31 @@ class Eventos:
                     eventos.append({ "t": 0 if len(seccion["sectionNotes"]) == 0 else seccion["sectionNotes"][0][0],
                     "e": "FocusCamera", "v": { "char": 0 if must else 1, "x": 0, "y": 0 } })        
             for evento in events.get("events", []):
-                if evento[1][-1][0] == "Add Camera Zoom":
-                    eventos.append(
-                    {"t" : evento[0], "e" : "ZoomCamera", "v" : { "duration": float(evento[1][-1][-1]) if evento[1][-1][-1] != '' else 0,
-                    "ease": "expoOut", "mode": "stage", "zoom":  float(evento[1][-1][1])* 50}
-                  }  )
-                elif evento[1][-1][0] == "Play Animation":
-                    target = "bf"
-                    if evento[1][-1][-1] == "2" or evento[1][-1][-1] == "Dad":
-                        target = "dad"
-                    elif evento[1][-1][-1] == "1" or evento[1][-1][-1] == "BF":
-                        target = "bf"
-                    elif evento[1][-1][-1] == "GF":
-                        target = "gf"
-                    else:
-                        target = evento[1][-1][-1]
-                    eventos.append( {
-                    "t": evento[0],
-                    "e": "PlayAnimation",
-                    "v": { "anim": evento[1][-1][1], "force": True, "target": target}
-                    })
-                else:
-                    eventos.append(
-                    {"t" : evento[0], "e" : evento[1][-1][0], "v" : { "v1": evento[1][-1][1], "v2":  evento[1][-1][-1]}
-                  }  )
+                tiempo = evento[0]
+                print(evento)
+                for accion in evento[1]:
+                    print(accion)
+                    eventos.append(identificar(tiempo, accion))
             print(f"Eventos convertidos con exito!\nTotal de eventos : {len(eventos)}")
-            return eventos                       
+            return eventos
+
+def identificar(tiempo = int, eventos = list[str]) -> dict:
+    if eventos[0] == "Add Camera Zoom":
+        return {"t" : tiempo, "e" : "ZoomCamera", 
+        "v" : { "duration": float(eventos[2]) if eventos[2] != '' else 0,
+        "ease": "expoOut", "mode": "stage", "zoom":  float(eventos[1])* 50}}
+    elif eventos[0] == "Play Animation":
+        target = "bf"
+        if eventos[2] == "2" or eventos[2] == "Dad":
+            target = "dad"
+        elif eventos[2] == "1" or eventos[2] == "BF":
+            target = "bf"
+        elif eventos[2] == "GF":
+            target = "gf"
+        else:
+            target = eventos[2]
+        return {"t": tiempo,
+        "e": "PlayAnimation",
+        "v": { "anim": eventos[1], "force": True, "target": target}}
+    else:
+        return {"t" : tiempo, "e" : eventos[0], "v" : { "v1": eventos[1], "v2":  eventos[2]}}
