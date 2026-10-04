@@ -6,11 +6,11 @@ class Convertidor:
         if not datos.get("format", False):
             datos = datos.get("song")
         if isinstance(datos["notes"], dict):
-            dificultades = {k: 5 for k in datos["notes"]}
-            dificultades2 = list(datos["notes"])
+            ratings = {k: 5 for k in datos["notes"]}
+            dificultades = list(datos["notes"])
         else:
-            dificultades = {"normal" : 5}
-            dificultades2 = ["normal"]
+            ratings = {"normal" : 5}
+            dificultades = ["normal"]
         print("Metadata convertida con exito!")
         return {
         "version" : "2.2.4",
@@ -19,7 +19,7 @@ class Convertidor:
         "charter" : "Alguien",
         "offsets" : {} if datos.get("offset", {}) == 0 else datos.get("offset", {}),
         "playData" : {
-        "difficulties" : dificultades2,
+        "difficulties" : dificultades,
         "characters" : {
         "player" : datos.get("player1", "bf"),
         "girlfriend" : datos.get("gfVersion", ""),
@@ -29,7 +29,7 @@ class Convertidor:
         },
         "stage" : datos.get("stage", "mainStageErect"),
         "noteStyle" : "pixel" if datos.get("player1", "bf").endswith("pixel") else "funkin",
-        "ratings" :dificultades,
+        "ratings" : ratings,
          "album" : "volume2"
         },
             "convertidoPor" : "Luis Angel Solis Avila",
@@ -54,15 +54,7 @@ class Convertidor:
                 must = notas.get("mustHitSection", False)
                 alt = notas.get("altAnim", False)
                 for teclas in notas.get("sectionNotes", []):
-                    d = teclas[1]
-                    if not must and not formato:
-                        d = (d + 4) % 8
-                    tecla = { "t": teclas[0], "d": d}
-                    if teclas[2] > 0:
-                        tecla.setdefault("l", teclas[2])
-                    if alt or teclas[-1] == "Alt Animation":
-                        tecla.setdefault("k", "mom")
-                    cancion.append(tecla)             
+                    cancion.append(identificar(teclas, alt, must, formato))    
             dificultades = {"normal" : cancion}
             print(f"Chart convertido con exito!\nCantidad de notas : {len(cancion)}")
         else:
@@ -73,15 +65,8 @@ class Convertidor:
                         alt = seccion.get("altAnim", False)
                         must = seccion.get("mustHitSection", False)
                         for teclas in seccion["sectionNotes"]:
-                            d = teclas[1]
-                            if not must and not formato:
-                                d = (d + 4) % 8
-                            tecla = { "t": teclas[0], "d": d}
-                            if teclas[2] > 0:
-                                tecla.setdefault("l", teclas[2])
-                            if alt or teclas[-1] == "Alt Animation":
-                                tecla.setdefault("k", "mom")
-                            dificultades[dificultad].append({ "t": teclas[0], "d": d, "l": teclas[2]})
+                            dificultades[dificultad].append(identificar(teclas, alt, must, formato))
+                            
                                     
                                       
         return { "version" : "2.0.0",
@@ -89,3 +74,14 @@ class Convertidor:
         "events" : eventos,
         "notes" : dificultades,
         "convertidoPor" : "Luis Angel Solis Avila"}
+
+def identificar(teclas = list, alt = bool, must = bool, formato = bool)-> dict:
+    d = teclas[1]
+    if not must and not formato:
+        d = (d + 4) % 8
+    tecla = { "t": teclas[0], "d": d}
+    if teclas[2] > 0:
+        tecla.setdefault("l", teclas[2])
+    if alt or teclas[-1] == "Alt Animation":
+        tecla.setdefault("k", "mom")
+    return tecla
