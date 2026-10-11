@@ -1,10 +1,11 @@
-from jsonControlador import JsonControl
+from fileControlador import File
+import typing
 
 class ConvertirChar:
-    def npc(archivo = dict):
+    def npc(archivo = dict, nombre = str) -> dict:
         nuevoArchivo = {
             "version" : "1.0.0",
-            "name" : "nuevoPersonaje",
+            "name" : nombre,
             "assetPath" : archivo.get("image", "characters/bf"),
             "singTime" : archivo.get("sing_duration", 0),
             "isPixel" : False,
@@ -26,13 +27,13 @@ class ConvertirChar:
                 }
                 )
 
-        JsonControl.guardarJson(nuevoArchivo, "NPC", "NPC")
+        return nuevoArchivo
 
 
-    def bf(archivo = dict):
+    def bf(archivo = dict, nombre = str) -> dict:
         nuevoArchivo = {
             "version" : "1.0.0",
-            "name" : "nuevoPersonaje",
+            "name" : nombre,
             "assetPath" : archivo.get("image", "characters/bf"),
             "flipX" : archivo.get("flip_x", False),
             "renderType": "multisparrow",
@@ -56,13 +57,13 @@ class ConvertirChar:
                 }
                 )
 
-        JsonControl.guardarJson(nuevoArchivo,"BF", "BF")
+        return nuevoArchivo
 
 
-    def gf(archivo = dict):
+    def gf(archivo = dict, nombre = str) -> dict:
         nuevoArchivo = {
             "version" : "1.0.0",
-            "name" : "nuevoPersonaje",
+            "name" : nombre,
             "isPixel" : False,
             "assetPath" : archivo.get("image", "characters/bf"),
             "scale" : archivo.get("scale", 4),
@@ -81,4 +82,4 @@ class ConvertirChar:
                 }
                 )
 
-        JsonControl.guardarJson(nuevoArchivo, "GF" ,"GF")
+        return nuevoArchivo

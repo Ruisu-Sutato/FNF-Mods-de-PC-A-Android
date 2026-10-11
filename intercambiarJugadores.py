@@ -1,4 +1,4 @@
-from jsonControlador import JsonControl
+from fileControlador import File
 
 class Intercambiar:
     def chart(chart = dict):
@@ -25,7 +25,7 @@ class Intercambiar:
                 notas[dificultad].append(nota)
 
         print(f"Exito al intercambiar jugadores\nTotal de eventos : {len(eventos)}\nTotal de Notas {len(notas[dificultades[-1]])}")
-        JsonControl.guardarJson({
+        File.guardarJson({
             "version" : chart.get("version", "2.0.0"),
             "scrollSpeed" : chart.get("scrollSpeed", 0),
             "events" : eventos,

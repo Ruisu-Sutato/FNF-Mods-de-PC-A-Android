@@ -1,4 +1,4 @@
-from jsonControlador import JsonControl
+from fileControlador import File
 class Dialogos:
     def convertirDialogos(archivo = dict):
         dialogos = []
@@ -33,4 +33,4 @@ class Dialogos:
             "dialogue" : dialogos
         }
         print(f"Diálogos convertidos con exito!\nTotal de diálogos : {len(dialogos)}")
-        JsonControl.guardarJson(nuevoArchivo, "diálogo", "diálogos")
+        return nuevoArchivo

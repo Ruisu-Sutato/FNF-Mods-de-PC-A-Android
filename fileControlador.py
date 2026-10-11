@@ -1,7 +1,7 @@
 import json
 import os
 import typing
-class JsonControl:
+class File:
     def leerJson(url=str) -> dict:
         try:
             with open(url, "r", encoding="utf-8") as f:
@@ -17,9 +17,9 @@ class JsonControl:
     def guardarJson(archivo=dict ,nombre=str, carpeta=str):
         try:
             nombre = nombre.lower().replace(" ", "-")
-            if not os.path.exists(f"{carpeta}-android"):
-                os.makedirs(f"{carpeta}-android")
-            with open(f"{carpeta}-android/{nombre}.json", "w", encoding="utf-8") as f:
+            if not os.path.exists(f"{carpeta}"):
+                os.makedirs(f"{carpeta}")
+            with open(f"{carpeta}/{nombre}.json", "w", encoding="utf-8") as f:
                 json.dump(archivo,  f,  indent=4)
                 print(f"Archivo guardado como {nombre}.json")
         except FileNotFoundError:
@@ -27,4 +27,9 @@ class JsonControl:
         except KeyError as e:
             print(f"Json Inválido {e}")
         except Exception as e:
-            print(f"Error {e}")                
+            print(f"Error {e}")
+
+    def crearCarpetas(url = str, archivo = None or str):
+        os.makedirs(os.path.dirname(url), exist_ok=True)
+        with open(url, "w", encoding="utf-8") as f:
+            f.write(archivo)
